@@ -89,6 +89,20 @@ async function isAdmin(email) {
     }
 }
 
+async function isApplicant(email) {
+    try {
+        const user = await userRepository.getUserByEmail(email);
+        if (!user) {
+            throw new AppError('No user found for the given id', StatusCodes.NOT_FOUND);
+        }
+        return user.role == "applicant";
+    }
+    catch (error) {
+        if(error instanceof AppError)throw error;
+        throw new AppError('Something went wrong', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 async function getUserById(id) {
     try {
         const user = await userRepository.getUserById(id);
@@ -108,4 +122,5 @@ module.exports = {
     isAdmin,
     getUserById,
     getUser,
+    isApplicant,
 }

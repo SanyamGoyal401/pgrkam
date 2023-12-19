@@ -4,7 +4,6 @@ const AppError = require('../utils/errors/app-error');
 const {StatusCodes} = require('http-status-codes');
 
 function validateAuthRequest(req, res, next){
-    console.log(req);
     if(!req.body.email){
         ErrorResponse.message = "Something went wrong  while authenticating";
         ErrorResponse.error = new AppError(["email not found in the incoming request"],StatusCodes.BAD_REQUEST);
@@ -57,9 +56,20 @@ async function isAdmin(req, res, next){
     next();
 }
 
+async function isApplicant(req, res, next){
+    const response = await UserService.isApplicant(req.user.email);
+    if(!response){
+        return res
+            .status(StatusCodes.UNAUTHORIZED)
+            .json({message: 'User not authorized for this action'});
+    }
+    next();
+}
+
 
 module.exports = {
     validateAuthRequest,
     checkAuth,
     isAdmin,
+    isApplicant,
 }

@@ -1,7 +1,7 @@
-const {UserService} = require('../services')
+const {UserService, ApplicantService, JobService} = require('../services')
 const {ErrorResponse, SuccessResponse} = require("../utils/common")
 const {StatusCodes} = require('http-status-codes')
-
+const axios = require('axios');
 
 /**
  * GET:  /
@@ -78,9 +78,40 @@ async function isAuthenticated(req, res){
     }
 }
 
+async function recommend(req, res){
+    try {
+        const applicant = await ApplicantService.getApplicantById(req.user._id);
+        console.log("applicant = ", applicant);
+        const skills = applicant.skills.join(' | ');
+        console.log("skills = ", skills);
+        const response = await axios.post('https://recommendation-service-hrdr.onrender.com', {
+            user_info : skills
+        });
+        console.log("response = ", response.data);
+        let data = response.data;
+        data = await Promise.all(data.map(async (item)=>{
+            const job = await JobService.getJobById(item._id);
+            return {
+                success: item.Similarity,
+                job
+            }
+        }));
+        console.log(data);
+        SuccessResponse.data = data;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse)
+    } catch (error) {
+        ErrorResponse.error = error
+        return res.status(error.statusCode)
+        .json(ErrorResponse)
+    }
+}
+
 module.exports = {
     createUser,
     signin,
     isAuthenticated,
     getUser,
+    recommend,
 }
