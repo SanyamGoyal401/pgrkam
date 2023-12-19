@@ -18,6 +18,16 @@ async function createUser(data) {
     }
 }
 
+async function getUser(){
+    try {
+        const user = await userRepository.get();
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new AppError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 
 async function signin(data) {
     try {
@@ -71,8 +81,7 @@ async function isAdmin(email) {
         if (!user) {
             throw new AppError('No user found for the given id', StatusCodes.NOT_FOUND);
         }
-        const adminRole = await roleRepository.getRoleByName(ENUMS.USER_ROLES_ENUMS.ADMIN);
-        return user.hasRole(adminRole);
+        return user.role == "admin";
     }
     catch (error) {
         if(error instanceof AppError)throw error;
@@ -98,4 +107,5 @@ module.exports = {
     isAuthenticated,
     isAdmin,
     getUserById,
+    getUser,
 }

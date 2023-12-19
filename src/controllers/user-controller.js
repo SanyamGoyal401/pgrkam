@@ -4,6 +4,24 @@ const {StatusCodes} = require('http-status-codes')
 
 
 /**
+ * GET:  /
+ **/
+async function getUser(req, res){
+    try{
+        const response = await UserService.getUser();
+        SuccessResponse.data = response;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse)
+    }
+    catch(error){
+        ErrorResponse.error = error
+        return res.status(error.statusCode)
+        .json(ErrorResponse)
+    }
+}
+
+/**
  * POST:  /signup
  * req.body {email: 'user@gmail.com', password: "dsfj9sdjfoijw09"}
  **/
@@ -64,4 +82,5 @@ module.exports = {
     createUser,
     signin,
     isAuthenticated,
+    getUser,
 }
