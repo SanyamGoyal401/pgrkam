@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
 const applicantSchema = new mongoose.Schema({
-    number: {
-        type: Number,
-        required : true,
+    userId: {
+        type: String,
+        required: true
     },
     constituency: {
         type: String,
         required : true,
+    },
+    skills: {
+        type: [String],
+        required : false,
     },
     gender: {
         type: String,
@@ -19,10 +23,6 @@ const applicantSchema = new mongoose.Schema({
     },
     district: {
         type: Number,
-        required : false,
-    },
-    select_the_course: {
-        type: String,
         required : false,
     },
     agreement: {

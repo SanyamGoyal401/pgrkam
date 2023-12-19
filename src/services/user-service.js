@@ -79,9 +79,21 @@ async function isAdmin(email) {
     }
 }
 
+async function getUserById(id) {
+    try {
+        const user = await userRepository.getUserById(id);
+        return user
+    }
+    catch (error) {
+        console.log(error);
+        throw new AppError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 module.exports = {
     createUser,
     signin,
     isAuthenticated,
     isAdmin,
+    getUserById,
 }

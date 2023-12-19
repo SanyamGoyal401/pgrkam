@@ -14,7 +14,7 @@ const jobSchema = new mongoose.Schema({
         required : false,
     },
     industry: {
-        type: String,
+        type: [String],
         required : false,
     },
     job_description: {
@@ -50,6 +50,10 @@ const jobSchema = new mongoose.Schema({
         required : false,
     },
     gender: {
+        type: String,
+        required : false,
+    },    
+    type: {
         type: String,
         required : false,
     },    

@@ -19,7 +19,7 @@ class CrudRepository {
 
     async get() {
         try {
-            const response = await this.model.find({});
+            const response = await this.model.find();
             return response;
         }
         catch (error) {
@@ -36,6 +36,7 @@ class CrudRepository {
                     new: true
                 }
                 );
+                console.log(response);
             return response;
         }
         catch (error) {
