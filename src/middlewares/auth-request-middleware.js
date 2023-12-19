@@ -4,8 +4,9 @@ const AppError = require('../utils/errors/app-error');
 const {StatusCodes} = require('http-status-codes');
 
 function validateAuthRequest(req, res, next){
+    console.log(req);
     if(!req.body.email){
-        ErrorResponse.message = "Something went wrong while authenticating";
+        ErrorResponse.message = "Something went wrong  while authenticating";
         ErrorResponse.error = new AppError(["email not found in the incoming request"],StatusCodes.BAD_REQUEST);
         return res
             .status(StatusCodes.BAD_REQUEST)
