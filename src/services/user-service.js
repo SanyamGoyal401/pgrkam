@@ -45,6 +45,7 @@ async function isAuthenticated(token) {
         }
         const response = verifyToken(token);
         const user = await userRepository.getUserById(response.id);
+        await userRepository.updateTimestamps(response.id);
         if (!user) {
             throw new AppError('No user found', StatusCodes.NOT_FOUND);
         }
@@ -89,6 +90,7 @@ async function getUserById(id) {
         throw new AppError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
 
 module.exports = {
     createUser,

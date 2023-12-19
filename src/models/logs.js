@@ -1,16 +1,8 @@
 const mongoose = require('mongoose');
 
 const logSchema = new mongoose.Schema({
-    userId: {
-        type: String, 
-        required : true,
-    },
-    type : {
-        type: String,
-        required : false,
-    },
     featurename: {
-        type: Number,
+        type: String,
         required : true,
     },
     entertime: {

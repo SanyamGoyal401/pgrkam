@@ -23,6 +23,15 @@ class UserRepository extends CrudRepository{
             throw error;
         }
     }
+
+    async updateTimestamps(id){
+        try {
+            const response = await User.findByIdAndUpdate(id, {$currentDate: {updatedAt: true}}, {new: true});
+            console.log(response);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = UserRepository;

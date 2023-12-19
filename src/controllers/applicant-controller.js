@@ -9,27 +9,30 @@ const { StatusCodes } = require('http-status-codes')
 async function getApplicant(req, res) {
     try {
         const userId = req.query.userId;
-        let response = userId === undefined ? await ApplicantService.getApplicant() : await ApplicantService.getApplicantById(userId);
-        
         let { constituency, gender, highest_education, skills } = req.query;
-        
-        constituency === "All" ? constituency = undefined : constituency = constituency;
-        gender === "All" ? gender = undefined : gender = gender;
-        highest_education === "All" ? highest_education = NULL : highest_education = highest_education;
+
+        constituency == "All" ? constituency = undefined : constituency = constituency;
+        gender == "All" ? gender = undefined : gender = gender;
+        highest_education == "All" ? highest_education = undefined : highest_education = highest_education;
         skills === "All" ? skills = undefined : skills = skills;
 
+        let response = userId == undefined ? await ApplicantService.getApplicant() : await ApplicantService.getApplicantById(userId);
 
-        // Filter the data based on the provided filter values
-        const filteredData = response.filter(item => {
-            return (
-                (!constituency || item.constituency === constituency) &&
-                (!gender || item.gender === gender) &&
-                (!highest_education || item.highest_education === highest_education) &&
-                (!skills || skills.some(skill => item.skills.includes(skill)))
-            );
-        });
-
-        SuccessResponse.data = filteredData;
+        if (!userId) {
+            // Filter the data based on the provided filter values
+            const filteredData = response.filter(item => {
+                return (
+                    (!constituency || item.constituency === constituency) &&
+                    (!gender || item.gender === gender) &&
+                    (!highest_education || item.highest_education === highest_education) &&
+                    (!skills || item.skills.includes(skills))
+                );
+            });
+            SuccessResponse.data = filteredData;
+        }
+        else{
+            SuccessResponse.data = response;
+        }        
         return res
             .status(StatusCodes.OK)
             .json(SuccessResponse)

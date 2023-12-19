@@ -1,7 +1,7 @@
 const { ApplicantRepository } = require('../repositories')
 const { StatusCodes } = require('http-status-codes')
 const AppError = require('../utils/errors/app-error')
-const {UserRepository} = require('../repositories')
+const { UserRepository } = require('../repositories')
 
 
 const applicantRepository = new ApplicantRepository();
@@ -33,7 +33,7 @@ async function updateApplicant(id, data) {
 async function getApplicant() {
     try {
         const job = await applicantRepository.get();
-        return job
+        return job;
     }
     catch (error) {
         console.log(error);
@@ -47,10 +47,18 @@ async function getApplicantById(id) {
         const applicantData = await applicantRepository.getDataById(id);
         const userData = await userRepository.getUserById(id);
         let applicant = {
-            applicantData,
-            userData
+            userId: applicantData.userId,
+            constituency: applicantData.constituency,
+            gender: applicantData.gender,
+            highest_education: applicantData.highest_education,
+            district: applicantData.district,
+            skills: applicantData.skills,
+            agreement: applicantData.agreement,
+            email: userData.email,
+            name: userData.name,
+            phone: userData.phone,
+            role: userData.role,
         }
-        console.log(applicant);
         return applicant
     }
     catch (error) {

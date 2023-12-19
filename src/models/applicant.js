@@ -22,7 +22,7 @@ const applicantSchema = new mongoose.Schema({
         required : false,
     },
     district: {
-        type: Number,
+        type: String,
         required : false,
     },
     agreement: {
