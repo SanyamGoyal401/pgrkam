@@ -10,11 +10,7 @@ const userRepository = new UserRepository();
 async function createUser(data) {
     try {
         const user = await userRepository.create(data);
-        const jwt = createToken({ id: user.id, email: user.email });
-        return {
-            ...user,
-            jwt
-        };
+        return user
     }
     catch (error) {
         console.log(error);

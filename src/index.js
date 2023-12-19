@@ -8,7 +8,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/api', apiRoutes);
-
+app.use('', (req, res)=>{
+    res.status(200).json({
+        message: "Server is live."
+    })
+})
 app.listen(ServerConfig.PORT, ()=>{
     //mongoDB connection
     ConnectDB();

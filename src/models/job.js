@@ -1,42 +1,58 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-    name: {
+    company_name: {
         type: String,
-        required : true,
+        required: false,
     },
-    description : {
+    educational_qualification: {
         type: String,
         required : false,
     },
-    salary: {
-        type: Number,
-        required : true,
+    experience : {
+        type: String,
+        required : false,
+    },
+    industry: {
+        type: String,
+        required : false,
+    },
+    job_description: {
+        type: String,
+        required : false,
     },
     location: {
         type: String,
         required : false,
     },
-    interest: {
+    job_title: {
+        type: String,
+        required : false,
+    },
+    salary: {
+        type: String,
+        required : false,
+    },
+    post_date: {
+        type: String,
+        required : false,
+    },
+    skills: {
         type: [String],
         required : false,
     },
-    minimum_qualification: {
-        type: String,
+    no_of_vacancies: {
+        type: Number,
         required : false,
     },
-    eligibility: {
-        type: String,
+    max_age: {
+        type: Number,
         required : false,
     },
-    type: {
+    gender: {
         type: String,
         required : false,
-    },
-    category: {
-        type: String,
-        required : false,
-    }
+    },    
 },{timestamps: true});
 
 
