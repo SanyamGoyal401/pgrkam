@@ -45,7 +45,23 @@ async function signin(req, res){
     }
 }
 
+async function isAuthenticated(req, res){
+    try{
+        const response = await UserService.isAuthenticated(req.headers['authorization']);
+        SuccessResponse.data = response;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse)
+    }
+    catch(error){
+        ErrorResponse.error = error
+        return res.status(error.statusCode)
+        .json(ErrorResponse)
+    }
+}
+
 module.exports = {
     createUser,
     signin,
+    isAuthenticated,
 }

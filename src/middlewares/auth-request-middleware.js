@@ -25,7 +25,7 @@ function validateAuthRequest(req, res, next){
 
 
 async function checkAuth(req, res, next){
-    if(!req.headers['x-access-token']){
+    if(!req.headers['authorization']){
         ErrorResponse.message = "Something went wrong while verifying token";
         ErrorResponse.error = new AppError(["token not found in the incoming request"],StatusCodes.BAD_REQUEST);
         return res
@@ -34,7 +34,7 @@ async function checkAuth(req, res, next){
     }
 
     try{
-        const response = await UserService.isAuthenticated(req.headers['x-access-token']);
+        const response = await UserService.isAuthenticated(req.headers['authorization']);
         if(response){
             req.user = response
             next();

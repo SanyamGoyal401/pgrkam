@@ -44,7 +44,7 @@ async function isAuthenticated(token) {
             return new AppError('Missing jwt token', StatusCodes.BAD_REQUEST);
         }
         const response = verifyToken(token);
-        const user = await userRepository.get(response.id);
+        const user = await userRepository.getUserById(response.id);
         if (!user) {
             throw new AppError('No user found', StatusCodes.NOT_FOUND);
         }
