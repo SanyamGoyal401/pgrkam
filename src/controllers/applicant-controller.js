@@ -8,7 +8,7 @@ const { StatusCodes } = require('http-status-codes')
  **/
 async function getApplicant(req, res) {
     try {
-        const userId = req.body.userId;
+        const userId = req.query.userId;
         let response = userId === undefined ? await ApplicantService.getApplicant() : await ApplicantService.getApplicantById(userId);
         
         let { constituency, gender, highest_education, skills } = req.query;
