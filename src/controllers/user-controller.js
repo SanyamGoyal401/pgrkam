@@ -111,32 +111,33 @@ async function recommend(req, res) {
 
 async function stats(req, res) {
     try {
-        const response = await UserService.getUser();
-        const dayStats = {};
-        const monthStats = {};
-        const yearStats = {};
+        const response = await UserService.stats();
+        // const dayStats = {};
+        // const monthStats = {};
+        // const yearStats = {};
 
-        response.forEach((user) => {
-            const createdAt = new Date(user.createdAt);
-            const year = createdAt.getFullYear();
-            const month = createdAt.getMonth() + 1; // Months are 0-indexed in JavaScript Date
-            const day = createdAt.getDate();
+        // response.forEach((user) => {
+        //     const createdAt = new Date(user.createdAt);
+        //     const year = createdAt.getFullYear();
+        //     const month = createdAt.getMonth() + 1; // Months are 0-indexed in JavaScript Date
+        //     const day = createdAt.getDate();
 
-            // Count for day
-            dayStats[day] = (dayStats[day] || 0) + 1;
+        //     // Count for day
+        //     dayStats[day] = (dayStats[day] || 0) + 1;
 
-            // Count for month
-            monthStats[month] = (monthStats[month] || 0) + 1;
+        //     // Count for month
+        //     monthStats[month] = (monthStats[month] || 0) + 1;
 
-            // Count for year
-            yearStats[year] = (yearStats[year] || 0) + 1;
-        });
+        //     // Count for year
+        //     yearStats[year] = (yearStats[year] || 0) + 1;
+        // });
 
-        SuccessResponse.data = {
-            day: dayStats,
-            month: monthStats,
-            year: yearStats
-        };
+        // SuccessResponse.data = {
+        //     day: dayStats,
+        //     month: monthStats,
+        //     year: yearStats
+        // };
+        SuccessResponse.data = response;
         return res
             .status(StatusCodes.OK)
             .json(SuccessResponse)
