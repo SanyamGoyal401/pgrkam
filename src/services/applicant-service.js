@@ -35,6 +35,7 @@ async function getApplicant() {
         const data = await Promise.all(job.map(async (item)=>{
             const user = await userRepository.getUserById(item.userId);
             return {
+                _id: item._id,
                 userId: item.userId,
                 constituency: item.constituency,
                 gender: item.gender,
@@ -48,7 +49,6 @@ async function getApplicant() {
                 role: user.role,
             }
         }))
-        console.log(data);
         return data;
     }
     catch (error) {
