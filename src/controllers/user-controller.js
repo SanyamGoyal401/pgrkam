@@ -92,7 +92,7 @@ async function recommend(req, res){
         data = await Promise.all(data.map(async (item)=>{
             const job = await JobService.getJobById(item._id);
             return {
-                success: item.Similarity,
+                success: item.Similarity*100,
                 job
             }
         }));

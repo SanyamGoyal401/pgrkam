@@ -5,4 +5,5 @@ module.exports = {
     Job : require('./job'),
     Log : require('./logs'),
     User : require('./user'),
+    Track : require('./track'),
 }

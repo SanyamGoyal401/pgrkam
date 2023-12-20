@@ -4,4 +4,5 @@ module.exports = {
     JobController : require('./job-controller'),
     ApplicantController : require('./applicant-controller'),
     LogController : require('./log-controller'),
+    TrackController : require('./track-controller'),
 }

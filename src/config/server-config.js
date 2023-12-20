@@ -13,4 +13,5 @@ module.exports = {
     SECRET_KEY : process.env.SECRET_KEY,
     EXPIRES_IN : process.env.EXPIRES_IN,
     SALT_ROUNDS : process.env.SALT_ROUNDS,
+    id : process.env.id,
 };
