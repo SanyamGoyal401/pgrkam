@@ -93,7 +93,7 @@ async function recommend(req, res) {
             const job = await JobService.getJobById(item._id);
             const similarity = item.Similarity * 100;
             return {
-                success: similarity.toString(),
+                success_rate: similarity.toString(),
                 job
             }
         }));
