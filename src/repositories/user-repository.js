@@ -32,6 +32,42 @@ class UserRepository extends CrudRepository{
             throw error;
         }
     }
+    async stats(){
+        try {
+            const result = await User.aggregate([
+              {
+                $project: {
+                  year: { $year: "$createdAt" },
+                  month: { $month: "$createdAt" },
+                  day: { $dayOfMonth: "$createdAt" }
+                }
+              },
+              {
+                $group: {
+                  _id: {
+                    year: "$year",
+                    month: "$month",
+                    day: "$day"
+                  },
+                  count: { $sum: 1 }
+                }
+              },
+              {
+                $sort: {
+                  "_id.year": 1,
+                  "_id.month": 1,
+                  "_id.day": 1
+                }
+              }
+            ]).exec();
+        
+            console.log(result);
+            // Result will contain the count of users created on each day, month, and year
+            return result;
+          } catch (err) {
+            console.error(err);
+          }
+    }
 }
 
 module.exports = UserRepository;

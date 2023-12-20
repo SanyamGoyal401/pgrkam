@@ -30,9 +30,9 @@ async function getApplicant(req, res) {
             });
             SuccessResponse.data = filteredData;
         }
-        else{
+        else {
             SuccessResponse.data = response;
-        }        
+        }
         return res
             .status(StatusCodes.OK)
             .json(SuccessResponse)
@@ -102,8 +102,40 @@ async function updateApplicant(req, res) {
 }
 
 
+async function stats(req, res) {
+    try {
+        const response = await ApplicantService.getApplicant();
+        const cityStats = {};
+
+        response.forEach((item) => {
+            const district = item.district;
+
+            // Count for the district
+            cityStats[district] = (cityStats[district] || 0) + 1;
+        });
+
+        // Convert the object to an array of objects
+        const result = Object.keys(cityStats).map((district) => ({
+            city: district,
+            count: cityStats[district],
+        }));
+
+        SuccessResponse.data = result;
+        return res
+            .status(StatusCodes.OK)
+            .json(SuccessResponse)
+    }
+    catch (error) {
+        ErrorResponse.error = error
+        return res.status(error.statusCode)
+            .json(ErrorResponse)
+    }
+}
+
+
 module.exports = {
     getApplicant,
     createApplicant,
     updateApplicant,
+    stats
 }

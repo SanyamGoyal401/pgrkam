@@ -8,4 +8,5 @@ router.post('/signin',AuthRequestMiddleware.validateAuthRequest, UserController.
 router.get('/auth/me',AuthRequestMiddleware.checkAuth, UserController.isAuthenticated);
 router.get('/', UserController.getUser);
 router.get('/recommend', AuthRequestMiddleware.checkAuth, AuthRequestMiddleware.isApplicant, UserController.recommend);
+router.get('/stats', UserController.stats);
 module.exports = router;
