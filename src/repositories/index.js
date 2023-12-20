@@ -4,4 +4,5 @@ module.exports = {
     ApplicantRepository: require('./applicant-repository'),
     LogRepository: require('./log-repository'),
     TrackRepository: require('./track-repository'),
+    ApplicationRepository : require('./application-repository'),
 }

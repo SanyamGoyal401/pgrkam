@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 
 const applicationSchema = new mongoose.Schema({
     userId: {
-        type : [String],
+        type : String,
         required : true,
     },
     jobId: {
         type: String,
         required : true,
     },
-    date : {
+    status : {
         type: String,
-        required : false,
-    },
+        required: false,
+    }
 },{timestamps: true});
 
 const Application = new mongoose.model('Application', applicationSchema);

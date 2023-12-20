@@ -5,4 +5,5 @@ module.exports = {
     ApplicantController : require('./applicant-controller'),
     LogController : require('./log-controller'),
     TrackController : require('./track-controller'),
+    ApplicationController: require('./application-controller'),
 }

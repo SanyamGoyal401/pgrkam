@@ -3,4 +3,5 @@ module.exports = {
     JobService : require('./job-service'),
     ApplicantService: require('./applicant-service'),
     LogService: require('./log-service'),
+    ApplicationService: require('./application-service'),
 }
