@@ -148,6 +148,22 @@ async function stats(req, res) {
             .json(ErrorResponse)
     }
 }
+async function userstats(req, res) {
+    try {
+        const response = await UserService.userstats();
+        SuccessResponse.data = response;
+        return res
+            .status(StatusCodes.OK)
+            .json(SuccessResponse)
+    }
+    catch (error) {
+        ErrorResponse.error = error
+        return res.status(error.statusCode)
+            .json(ErrorResponse)
+    }
+}
+
+
 
 module.exports = {
     createUser,
@@ -155,5 +171,6 @@ module.exports = {
     isAuthenticated,
     getUser,
     recommend,
-    stats
+    stats,
+    userstats,
 }

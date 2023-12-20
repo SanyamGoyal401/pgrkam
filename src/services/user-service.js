@@ -125,6 +125,17 @@ async function stats() {
     }
 }
 
+async function userstats() {
+    try {
+        const res = await userRepository.userstats();
+        return res;
+    }
+    catch (error) {
+        console.log(error);
+        throw new AppError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 
 module.exports = {
     createUser,
@@ -135,4 +146,5 @@ module.exports = {
     getUser,
     isApplicant,
     stats,
+    userstats,
 }

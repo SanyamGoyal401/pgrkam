@@ -9,4 +9,5 @@ router.get('/auth/me',AuthRequestMiddleware.checkAuth, UserController.isAuthenti
 router.get('/', UserController.getUser);
 router.get('/recommend', AuthRequestMiddleware.checkAuth, AuthRequestMiddleware.isApplicant, UserController.recommend);
 router.get('/stats', UserController.stats);
+router.get('/userstats', UserController.userstats);
 module.exports = router;
